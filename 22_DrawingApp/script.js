@@ -1,7 +1,15 @@
 const cavas = document.getElementById('canvas');
 const ctx = canvas.getContext('2d');
 
-let size = 20;
+const decreaseBtn = document.getElementById('decrease');
+const increaseBtn = document.getElementById('increase');
+const colorEl = document.getElementById('color');
+const sizeEl = document.getElementById('size');
+const clearEl = document.getElementById('clear');
+
+let size = 10;
+sizeEl.innerHTML = size;
+
 let isPressed = false;
 let color = 'black';
 let x;
@@ -50,5 +58,30 @@ function drawLine(x1, y1, x2, y2) {
   ctx.stroke();
 }
 
-// drawCircle(100, 200);
-// drawLine(300, 300, 400, 500);
+function updateSizeOnScreen() {
+  sizeEl.innerText = size;
+}
+
+colorEl.addEventListener('change', (event) => (color = event.target.value));
+
+increaseBtn.addEventListener('click', () => {
+  size += 5;
+
+  if (size > 50) {
+    size = 50;
+  }
+  updateSizeOnScreen();
+});
+
+decreaseBtn.addEventListener('click', () => {
+  size -= 5;
+
+  if (size < 0) {
+    size = 0;
+  }
+  updateSizeOnScreen();
+});
+
+clearEl.addEventListener('click', () => {
+  ctx.clearRect(0, 0, canvas.width, canvas.height);
+});
